@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Norma Mkhize — Brand & Digital Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --navy-mid: #162236;
+    --red: #c0392b;
+    --yellow: #f5c518;
+    --white: #f5f0e8;
+    --grey: #8a9bb0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--yellow);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--yellow);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+    opacity: 0.5;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.4rem 4rem;
+    background: rgba(13,27,42,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(245,197,24,0.12);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.12em;
+    color: var(--yellow);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--grey);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--yellow); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 80% 50%, rgba(192,57,43,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 80% at 10% 80%, rgba(245,197,24,0.06) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(245,197,24,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,197,24,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 900px; }
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    border: 1px solid rgba(245,197,24,0.4);
+    padding: 0.4rem 1rem;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.2s forwards;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 12vw, 11rem);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero h1 em {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--yellow);
+    font-size: 0.85em;
+  }
+  .hero-sub {
+    margin-top: 2rem;
+    font-size: 1.05rem;
+    color: var(--grey);
+    max-width: 480px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .hero-actions {
+    margin-top: 3rem;
+    display: flex; gap: 1.2rem; flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .btn-primary {
+    background: var(--yellow);
+    color: var(--navy);
+    padding: 0.85rem 2.2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: #ffd700; transform: translateY(-2px); }
+  .btn-outline {
+    border: 1px solid rgba(245,240,232,0.25);
+    color: var(--white);
+    padding: 0.85rem 2.2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); transform: translateY(-2px); }
+
+  .hero-stats {
+    position: absolute;
+    right: 4rem; bottom: 4rem;
+    display: flex; gap: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 1s forwards;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--yellow);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-top: 0.3rem;
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 7rem 4rem; }
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1;
+    letter-spacing: 0.03em;
+    color: var(--white);
+    margin-bottom: 3.5rem;
+  }
+  .section-title span { color: var(--red); }
+
+  /* ── BIO ── */
+  .bio-section {
+    background: var(--navy-mid);
+    position: relative;
+    overflow: hidden;
+  }
+  .bio-section::before {
+    content: 'NORMA';
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18vw;
+    color: rgba(245,197,24,0.03);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .bio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+  .bio-text p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--grey);
+    margin-bottom: 1.5rem;
+  }
+  .bio-text p strong { color: var(--white); font-weight: 500; }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .skill-pill {
+    border: 1px solid rgba(245,197,24,0.2);
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--grey);
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-pill::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--yellow);
+  }
+  .skill-pill:hover {
+    border-color: var(--yellow);
+    color: var(--yellow);
+    background: rgba(245,197,24,0.04);
+  }
+
+  /* ── PORTFOLIO GRID ── */
+  .portfolio-section { background: var(--navy); }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+  }
+  .project-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--navy-mid);
+    cursor: none;
+  }
+  .project-card:hover .project-overlay { opacity: 1; }
+  .project-card:hover .project-img { transform: scale(1.04); }
+  .project-card.large { grid-column: span 7; grid-row: span 2; }
+  .project-card.medium { grid-column: span 5; }
+  .project-card.wide { grid-column: span 12; }
+  .project-card.half { grid-column: span 6; }
+
+  .project-img {
+    width: 100%; height: 100%; min-height: 280px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+    background: var(--navy-mid);
+  }
+  .project-color-block {
+    width: 100%; min-height: 280px;
+    display: flex; align-items: flex-end;
+    padding: 2rem;
+    transition: transform 0.5s ease;
+    position: relative;
+  }
+  .project-overlay {
+    position: absolute; inset: 0;
+    background: rgba(13,27,42,0.88);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 2.5rem;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .project-category {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 0.5rem;
+  }
+  .project-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 0.8rem;
+  }
+  .project-desc {
+    font-size: 0.85rem;
+    color: var(--grey);
+    line-height: 1.6;
+  }
+  .project-info {
+    padding: 1.5rem 2rem;
+    border-top: 1px solid rgba(245,197,24,0.1);
+  }
+  .project-info .project-category { margin-bottom: 0.3rem; }
+  .project-info .project-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--white);
+    letter-spacing: 0.05em;
+  }
+
+  /* Color blocks for project cards without images */
+  .cb-loreign { background: linear-gradient(135deg, #2a1a1a 0%, #3d1f1f 50%, #1a0f0f 100%); }
+  .cb-ibs { background: linear-gradient(135deg, #0a1628 0%, #1a2540 50%, #0d1b2a 100%); }
+  .cb-moveit { background: linear-gradient(135deg, #1a0a2e 0%, #2d1060 50%, #120820 100%); }
+  .cb-ethekwini { background: linear-gradient(135deg, #0a2040 0%, #1040a0 50%, #051020 100%); }
+  .cb-kingsmead { background: linear-gradient(135deg, #0a2040 0%, #206090 50%, #051020 100%); }
+  .cb-umuzi { background: linear-gradient(135deg, #1a2a0a 0%, #3a5a10 50%, #0f1a05 100%); }
+  .cb-choice { background: linear-gradient(135deg, #1a0a0a 0%, #c0392b 50%, #0a0505 100%); }
+  .cb-web { background: linear-gradient(135deg, #0a1a2a 0%, #1a4060 50%, #051015 100%); }
+
+  .project-mock {
+    width: 100%; min-height: 320px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    letter-spacing: 0.05em;
+    opacity: 0.15;
+    transition: transform 0.5s ease;
+  }
+  .project-card.large .project-mock { min-height: 520px; font-size: 8rem; }
+
+  /* ── EXPERIENCE ── */
+  .experience-section { background: var(--navy-mid); }
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 220px 1fr auto;
+    gap: 2rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid rgba(245,240,232,0.07);
+    align-items: start;
+    transition: background 0.2s;
+  }
+  .exp-item:hover { background: rgba(245,197,24,0.02); }
+  .exp-date {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    padding-top: 0.3rem;
+  }
+  .exp-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+  }
+  .exp-company {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.8rem;
+  }
+  .exp-bullets {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.4rem;
+  }
+  .exp-bullets li {
+    font-size: 0.88rem;
+    color: var(--grey);
+    line-height: 1.6;
+    padding-left: 1rem;
+    position: relative;
+  }
+  .exp-bullets li::before {
+    content: '—';
+    position: absolute; left: 0;
+    color: var(--yellow);
+    font-size: 0.7rem;
+  }
+  .exp-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    color: rgba(245,197,24,0.1);
+    line-height: 1;
+  }
+
+  /* ── AWARDS ── */
+  .awards-section { background: var(--navy); }
+  .awards-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .award-card {
+    border: 1px solid rgba(245,197,24,0.15);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .award-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--yellow);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .award-card:hover { border-color: rgba(245,197,24,0.4); transform: translateY(-4px); }
+  .award-card:hover::after { transform: scaleX(1); }
+  .award-icon {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+  }
+  .award-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .award-year {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--yellow);
+  }
+
+  /* ── TOOLS ── */
+  .tools-section {
+    background: var(--navy-mid);
+    padding: 5rem 4rem;
+  }
+  .tools-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .tool-tag {
+    background: rgba(245,197,24,0.07);
+    border: 1px solid rgba(245,197,24,0.15);
+    padding: 0.6rem 1.4rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--grey);
+    transition: all 0.2s;
+  }
+  .tool-tag:hover {
+    background: rgba(245,197,24,0.12);
+    border-color: var(--yellow);
+    color: var(--yellow);
+  }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: var(--navy);
+    text-align: center;
+    padding: 8rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 50% 70% at 50% 100%, rgba(192,57,43,0.1) 0%, transparent 70%);
+  }
+  .contact-section .section-title { font-size: clamp(3.5rem, 8vw, 7rem); margin-bottom: 1.5rem; }
+  .contact-sub {
+    font-size: 1rem;
+    color: var(--grey);
+    margin-bottom: 3rem;
+    max-width: 480px;
+    margin-left: auto; margin-right: auto;
+    line-height: 1.7;
+  }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+  }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.6rem;
+    text-decoration: none;
+    color: var(--grey);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--yellow); }
+  .contact-link .dot {
+    width: 6px; height: 6px;
+    background: var(--yellow);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy-mid);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(245,197,24,0.08);
+  }
+  footer p {
+    font-size: 0.75rem;
+    color: var(--grey);
+    letter-spacing: 0.08em;
+  }
+  footer .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    color: var(--yellow);
+    letter-spacing: 0.12em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-section {
+    background: var(--yellow);
+    padding: 1.2rem 0;
+    overflow: hidden;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    color: var(--navy);
+    padding: 0 2.5rem;
+    flex-shrink: 0;
+  }
+  .marquee-dot {
+    color: var(--red);
+    padding: 0;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--yellow); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    section, .hero { padding: 5rem 2rem; }
+    .hero-stats { position: static; margin-top: 3rem; flex-wrap: wrap; gap: 2rem; }
+    .bio-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .project-card.large, .project-card.medium, .project-card.wide, .project-card.half { grid-column: span 1; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .exp-num { display: none; }
+    .awards-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .tools-section { padding: 4rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Norma Mkhize</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Brand & Digital Designer · Durban, South Africa</div>
+    <h1>I Turn<br><em>Brands</em><br>Into Magic</h1>
+    <p class="hero-sub">Image and brand strategist with 8+ years crafting identities, campaigns and visual stories for organisations across Africa and beyond.</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-primary">View Work</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">8+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">5</div>
+      <div class="stat-label">Industries</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">10+</div>
+      <div class="stat-label">Clients</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Brand Identity</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Packaging Design</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Social Media</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Illustration</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Web Design</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Multimedia</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Advertising</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Brand Strategy</span><span class="marquee-item marquee-dot">✦</span>
+    <!-- duplicate for seamless loop -->
+    <span class="marquee-item">Brand Identity</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Packaging Design</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Social Media</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Illustration</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Web Design</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Multimedia</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Advertising</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Brand Strategy</span><span class="marquee-item marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="bio-section" id="about">
+  <div class="bio-grid">
+    <div class="bio-text reveal">
+      <div class="section-label">About</div>
+      <h2 class="section-title">The<br><span>Story</span></h2>
+      <p>I am <strong>Norma Mkhize</strong> — an image and brand strategist with a flair for turning brands into magic and small to medium businesses into gold.</p>
+      <p>My mission is to create content and tell stories which are yet to be seen, heard and discovered. A story told in color, voice, and feeling — until a name becomes more than a name… it becomes a memory people carry.</p>
+      <p>Based in Durban, South Africa. <strong>Open to relocate.</strong> Available for remote work globally.</p>
+      <div style="margin-top:2rem;">
+        <a href="mailto:normamkhize777@gmail.com" class="btn-primary">normamkhize777@gmail.com</a>
+      </div>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-pill">Brand Identity Design</div>
+      <div class="skill-pill">Digital & Social Media</div>
+      <div class="skill-pill">Campaign Visuals</div>
+      <div class="skill-pill">Content Creation</div>
+      <div class="skill-pill">Web Design</div>
+      <div class="skill-pill">Video Editing</div>
+      <div class="skill-pill">Illustration</div>
+      <div class="skill-pill">Marketing Strategy</div>
+      <div class="skill-pill">Packaging Design</div>
+      <div class="skill-pill">Brand Storytelling</div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio-section" id="work">
+  <div class="section-label reveal">Selected Work</div>
+  <h2 class="section-title reveal">#1 Products &<br><span>Packaging</span></h2>
+
+  <div class="portfolio-grid">
+    <!-- Lo'reign Haircare -->
+    <div class="project-card large reveal">
+      <div class="project-color-block cb-loreign" style="min-height:520px; flex-direction:column; justify-content:center; align-items:center;">
+        <div style="text-align:center;">
+          <div style="font-family:'Playfair Display',serif; font-size:3.5rem; color:#c9a87c; letter-spacing:0.05em; font-style:italic;">Lo'Reign</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:0.8rem; letter-spacing:0.3em; text-transform:uppercase; color:#8a7060; margin-top:0.5rem;">Haircare</div>
+          <div style="margin-top:2rem; width:120px; height:2px; background: linear-gradient(90deg, transparent, #c9a87c, transparent); margin-left:auto; margin-right:auto;"></div>
+          <div style="margin-top:1rem; font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:#6a5040;">Your hair · Your crown</div>
+          <!-- Product bottles representation -->
+          <div style="display:flex; gap:1.5rem; margin-top:3rem; justify-content:center;">
+            <div style="width:45px; height:120px; background:linear-gradient(180deg,#1a0f0f,#2d1a1a); border-radius:8px 8px 4px 4px; border:1px solid #3d2a2a; position:relative;">
+              <div style="position:absolute; bottom:20px; left:4px; right:4px; height:50px; background:linear-gradient(135deg,#c9a87c22,#8b554422); border-radius:2px;"></div>
+            </div>
+            <div style="width:55px; height:150px; background:linear-gradient(180deg,#0a0505,#1a0f0f); border-radius:8px 8px 4px 4px; border:1px solid #2d1a1a; position:relative;">
+              <div style="position:absolute; top:8px; left:50%; transform:translateX(-50%); width:12px; height:18px; background:#2a1a1a; border-radius:3px 3px 0 0;"></div>
+              <div style="position:absolute; bottom:20px; left:4px; right:4px; height:65px; background:linear-gradient(135deg,#c9a87c33,#8b554433); border-radius:2px;"></div>
+            </div>
+            <div style="width:50px; height:140px; background:linear-gradient(180deg,#0a0505,#1a0f0f); border-radius:8px 8px 4px 4px; border:1px solid #2d1a1a; position:relative;">
+              <div style="position:absolute; top:8px; left:50%; transform:translateX(-50%); width:10px; height:20px; background:#3a2020; border-radius:1px 1px 0 0;"></div>
+              <div style="position:absolute; bottom:20px; left:4px; right:4px; height:60px; background:linear-gradient(135deg,#c9a87c22,#8b554422); border-radius:2px;"></div>
+            </div>
+            <div style="width:45px; height:125px; background:linear-gradient(180deg,#1a0f0f 30%,rgba(245,200,200,0.3)); border-radius:8px 8px 4px 4px; border:1px solid #3d2a2a; position:relative;">
+              <div style="position:absolute; bottom:20px; left:4px; right:4px; height:50px; background:linear-gradient(135deg,#c9a87c22,#8b554422); border-radius:2px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-overlay">
+        <div class="project-category">Brand Identity · Packaging Design</div>
+        <div class="project-title">Lo'Reign Haircare</div>
+        <div class="project-desc">Premium brand identity system including logo, packaging for 4-product haircare line, stationery suite, and branded visual assets. Elegant typography meets minimal colour palette for shelf-ready appeal.</div>
+      </div>
+    </div>
+
+    <!-- IBS -->
+    <div class="project-card medium reveal">
+      <div class="project-color-block cb-ibs" style="min-height:280px; align-items:center; justify-content:center;">
+        <div style="text-align:center;">
+          <div style="font-size:4rem; font-family:'Bebas Neue',sans-serif; color:#6080c0; letter-spacing:0.1em; opacity:0.8;">IBS</div>
+          <div style="font-size:0.65rem; letter-spacing:0.25em; text-transform:uppercase; color:#4060a0; margin-top:0.5rem;">Ifihlakalo Burial Society</div>
+        </div>
+      </div>
+      <div class="project-overlay">
+        <div class="project-category">Brand Identity</div>
+        <div class="project-title">Ifihlakalo Burial Society</div>
+        <div class="project-desc">Complete brand identity communicating trust, dignity and community — logo, colour palette, typography system, and print assets.</div>
+      </div>
+    </div>
+
+    <!-- MoveIT -->
+    <div class="project-card medium reveal">
+      <div class="project-color-block cb-moveit" style="min-height:280px; align-items:center; justify-content:center;">
+        <div style="text-align:center;">
+          <div style="font-size:3rem; font-family:'Bebas Neue',sans-serif; color:#9060e0; letter-spacing:0.1em;">MoveIT</div>
+          <div style="width:80px; height:2px; background:#6040a0; margin:0.8rem auto;"></div>
+          <div style="font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:#6040a0;">Flexibility that moves with you</div>
+        </div>
+      </div>
+      <div class="project-overlay">
+        <div class="project-category">Social Media · Digital Campaign</div>
+        <div class="project-title">MoveIT Campaign</div>
+        <div class="project-desc">Bold social media campaign visuals — data plan promotions, free trial ads, and brand messaging across multiple data tier packages.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: Social Media -->
+  <h2 class="section-title reveal" style="margin-top:5rem;">#2 Social<br><span>Media</span></h2>
+  <div class="portfolio-grid">
+    <div class="project-card wide reveal">
+      <div class="project-color-block cb-ethekwini" style="min-height:300px; align-items:center; justify-content:center; gap:3rem;">
+        <div style="text-align:center;">
+          <div style="font-size:0.65rem; letter-spacing:0.3em; text-transform:uppercase; color:#4080d0; margin-bottom:1rem;">eThekwini Municipality</div>
+          <div style="font-size:2.5rem; font-family:'Bebas Neue',sans-serif; color:#60a0e0; letter-spacing:0.1em;">Durban July</div>
+          <div style="font-size:1rem; font-family:'Playfair Display',serif; font-style:italic; color:#4060a0; margin-top:0.3rem;">Grand Experience</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:0.65rem; letter-spacing:0.3em; text-transform:uppercase; color:#4080d0; margin-bottom:1rem;">Kingsmead</div>
+          <div style="font-size:2rem; font-family:'Bebas Neue',sans-serif; color:#60a0e0; letter-spacing:0.1em;">Womandla Forever</div>
+          <div style="font-size:0.8rem; color:#4060a0; margin-top:0.3rem;">50% Off Sale Campaign</div>
+        </div>
+      </div>
+      <div class="project-overlay">
+        <div class="project-category">Social Media · Multimedia · Retail Campaign</div>
+        <div class="project-title">eThekwini Municipality & Kingsmead</div>
+        <div class="project-desc">Social media visuals, event promotion for Durban July activation, countdown content, and the Womandla women's empowerment campaign for Kingsmead's seasonal retail.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Illustration -->
+  <h2 class="section-title reveal" style="margin-top:5rem;">#3 <span>Illustration</span></h2>
+  <div class="portfolio-grid">
+    <div class="project-card half reveal">
+      <div class="project-color-block cb-umuzi" style="min-height:320px; flex-direction:column; justify-content:center; align-items:center; gap:1.5rem;">
+        <div style="display:flex; gap:1.5rem;">
+          <!-- Pop art portrait placeholders -->
+          <div style="width:80px; height:100px; border-radius:50% 50% 40% 40%; background:linear-gradient(135deg,#4a8a20,#2a5a10); border:2px solid #3a7015; display:flex; align-items:center; justify-content:center;">
+            <div style="font-size:2rem; opacity:0.6;">◉</div>
+          </div>
+          <div style="width:80px; height:100px; border-radius:50% 50% 40% 40%; background:linear-gradient(135deg,#8a4020,#5a2010); border:2px solid #7a3010; display:flex; align-items:center; justify-content:center;">
+            <div style="font-size:2rem; opacity:0.6;">◉</div>
+          </div>
+          <div style="width:80px; height:100px; border-radius:50% 50% 40% 40%; background:linear-gradient(135deg,#204080,#102040); border:2px solid #1a3060; display:flex; align-items:center; justify-content:center;">
+            <div style="font-size:2rem; opacity:0.6;">◉</div>
+          </div>
+        </div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:1.2rem; letter-spacing:0.2em; color:#3a7015; text-align:center;">Faces of Umuzi</div>
+      </div>
+      <div class="project-overlay">
+        <div class="project-category">Digital Illustration · Portrait Series</div>
+        <div class="project-title">Faces of Umuzi</div>
+        <div class="project-desc">Bold pop-art inspired portrait series celebrating the diverse creative community within Umuzi Academy — geometric shapes, vibrant palettes, stylised individuality.</div>
+      </div>
+    </div>
+    <div class="project-card half reveal">
+      <div class="project-color-block" style="background:linear-gradient(135deg,#1a1000,#2d2000,#0d0800); min-height:320px; flex-direction:column; justify-content:center; align-items:center; gap:2rem;">
+        <div style="font-family:'Playfair Display',serif; font-size:0.75rem; letter-spacing:0.25em; text-transform:uppercase; color:#806020;">Personal Illustration Work</div>
+        <div style="display:flex; gap:2rem; align-items:center;">
+          <div style="width:90px; height:110px; border-radius:8px; background:linear-gradient(135deg,#c0391b,#8b0000); opacity:0.7; display:flex; align-items:center; justify-content:center; font-size:2.5rem; color:#f5c518;">◈</div>
+          <div style="width:90px; height:110px; border-radius:8px; background:linear-gradient(135deg,#f5c518,#c09000); opacity:0.7; display:flex; align-items:center; justify-content:center; font-size:2.5rem; color:#0d1b2a;">◈</div>
+        </div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:0.2em; color:#806020; text-align:center;">Serendipity Series</div>
+      </div>
+      <div class="project-overlay">
+        <div class="project-category">Personal · Digital Illustration</div>
+        <div class="project-title">Illustration Series</div>
+        <div class="project-desc">Personal illustration work — intricate digital portraits with layered headwraps, rich African aesthetics and distinctive visual language that defines Norma's signature style.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4 & 5: Web + Advertising -->
+  <h2 class="section-title reveal" style="margin-top:5rem;">#4 Web &<br><span>#5 Advertising</span></h2>
+  <div class="portfolio-grid">
+    <div class="project-card half reveal">
+      <div class="project-color-block cb-web" style="min-height:300px; flex-direction:column; justify-content:center; align-items:center; gap:1rem;">
+        <div style="width:200px; height:130px; background:#0a1e36; border:1px solid #1a4060; border-radius:4px; padding:1rem; display:flex; flex-direction:column; gap:0.5rem;">
+          <div style="height:8px; background:#1a4060; border-radius:2px; width:60%;"></div>
+          <div style="height:6px; background:#0f2d4d; border-radius:2px; width:80%;"></div>
+          <div style="height:6px; background:#0f2d4d; border-radius:2px; width:70%;"></div>
+          <div style="margin-top:0.5rem; height:30px; background:#1a4060; border-radius:2px;"></div>
+        </div>
+        <div style="font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:#2060a0;">Web Design · WordPress · Webflow</div>
+      </div>
+      <div class="project-overlay">
+        <div class="project-category">Web Design & Development</div>
+        <div class="project-title">LabourLinq · Beesdam · Conduit</div>
+        <div class="project-desc">Full website design and development — LabourLinq HR solutions, Beesdam Pretoria automotive e-commerce, and The Conduit People Solutions coaching platform.</div>
+      </div>
+    </div>
+    <div class="project-card half reveal">
+      <div class="project-color-block cb-choice" style="min-height:300px; flex-direction:column; justify-content:center; align-items:center; gap:1.5rem;">
+        <div style="display:flex; flex-direction:column; gap:0.6rem; width:160px;">
+          <div style="height:35px; background:#1a4ab0; display:flex; align-items:center; padding:0 1rem; gap:0.8rem; border-radius:2px;">
+            <div style="width:20px; height:20px; border-radius:50%; background:#3060d0; opacity:0.8;"></div>
+            <div style="font-size:0.6rem; letter-spacing:0.1em; color:#80a0f0;">DA</div>
+          </div>
+          <div style="height:35px; background:#c0391b; display:flex; align-items:center; padding:0 1rem; gap:0.8rem; border-radius:2px;">
+            <div style="width:20px; height:20px; border-radius:50%; background:#e05030; opacity:0.8;"></div>
+            <div style="font-size:0.6rem; letter-spacing:0.1em; color:#ffb0a0;">EFF</div>
+          </div>
+          <div style="height:35px; background:#c09000; display:flex; align-items:center; padding:0 1rem; gap:0.8rem; border-radius:2px;">
+            <div style="width:20px; height:20px; border-radius:50%; background:#f0b000; opacity:0.8;"></div>
+            <div style="font-size:0.6rem; letter-spacing:0.1em; color:#fff3b0;">ANC</div>
+          </div>
+        </div>
+        <div style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:#c0391b;">iChoice eyakho!</div>
+      </div>
+      <div class="project-overlay">
+        <div class="project-category">Advertising · Print · OOH</div>
+        <div class="project-title">Choice Election Campaign</div>
+        <div class="project-desc">Tactical advertising campaign — print ads, billboards, posters and digital campaign visuals using election-season visual language to drive bold brand awareness.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience-section" id="experience">
+  <div class="section-label reveal">Career</div>
+  <h2 class="section-title reveal">Experience</h2>
+  <div class="exp-list">
+
+    <div class="exp-item reveal">
+      <div class="exp-date">Nov 2024 — Jan 2025</div>
+      <div>
+        <div class="exp-role">Senior Designer</div>
+        <div class="exp-company">Netstream Integrated Solutions</div>
+        <ul class="exp-bullets">
+          <li>Developed marketing and digital design assets supporting client campaigns</li>
+          <li>Produced branded content across digital platforms</li>
+          <li>Contributed to marketing strategy and campaign development</li>
+        </ul>
+      </div>
+      <div class="exp-num">01</div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-date">Mar 2024 — Oct 2024</div>
+      <div>
+        <div class="exp-role">Digital Designer</div>
+        <div class="exp-company">eThekwini Municipality</div>
+        <ul class="exp-bullets">
+          <li>Designed social media content and digital assets for municipal communication campaigns</li>
+          <li>Created promotional visuals and video content for Durban July activations</li>
+          <li>Produced digital assets for the municipality mobile application awareness campaign</li>
+          <li>Ensured brand consistency across all digital platforms</li>
+        </ul>
+      </div>
+      <div class="exp-num">02</div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-date">Mar 2023 — Nov 2023</div>
+      <div>
+        <div class="exp-role">Senior Graphic Designer</div>
+        <div class="exp-company">MyHealthcare Clinic</div>
+        <ul class="exp-bullets">
+          <li>Developed digital and print marketing assets for healthcare campaigns</li>
+          <li>Designed brand assets and managed social media visual content</li>
+          <li>Maintained visual consistency across all marketing channels</li>
+        </ul>
+      </div>
+      <div class="exp-num">03</div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-date">Mar 2019 — Oct 2022</div>
+      <div>
+        <div class="exp-role">Head of Design</div>
+        <div class="exp-company">Dark Royalty Media</div>
+        <ul class="exp-bullets">
+          <li>Led design and brand development projects across digital and print platforms</li>
+          <li>Developed brand identities, marketing materials and social media content</li>
+          <li>Managed website design and digital brand presence</li>
+          <li>Oversaw creative direction for client campaigns and marketing initiatives</li>
+        </ul>
+      </div>
+      <div class="exp-num">04</div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-date">Nov 2016 — Dec 2017</div>
+      <div>
+        <div class="exp-role">Graphic Designer</div>
+        <div class="exp-company">Umuzi Academy</div>
+        <ul class="exp-bullets">
+          <li>Developed advertising creatives and campaign visuals for partner brands</li>
+          <li>Produced digital, web and video content for marketing campaigns</li>
+          <li>Contributed to creative concept development</li>
+        </ul>
+      </div>
+      <div class="exp-num">05</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section class="awards-section">
+  <div class="section-label reveal">Recognition</div>
+  <h2 class="section-title reveal">Awards &<br><span>Honours</span></h2>
+  <div class="awards-row">
+    <div class="award-card reveal">
+      <div class="award-icon">🏆</div>
+      <div class="award-title">Advertising Creative of the Year</div>
+      <div class="award-year">2017</div>
+    </div>
+    <div class="award-card reveal">
+      <div class="award-icon">🌍</div>
+      <div class="award-title">Google Africa Developer Scholarship</div>
+      <div class="award-year">2020 · Candidate</div>
+    </div>
+    <div class="award-card reveal">
+      <div class="award-icon">📱</div>
+      <div class="award-title">Suacode Africa Certification</div>
+      <div class="award-year">Mobile Web Applications</div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<div class="tools-section">
+  <div class="section-label">Technical Toolkit</div>
+  <div class="tools-row">
+    <div class="tool-tag">Adobe Illustrator</div>
+    <div class="tool-tag">Adobe Photoshop</div>
+    <div class="tool-tag">Adobe InDesign</div>
+    <div class="tool-tag">Adobe Premiere</div>
+    <div class="tool-tag">Webflow</div>
+    <div class="tool-tag">WordPress</div>
+    <div class="tool-tag">Cinema 4D</div>
+    <div class="tool-tag">Canva</div>
+    <div class="tool-tag">Mailchimp</div>
+    <div class="tool-tag">Later</div>
+    <div class="tool-tag">Trello</div>
+    <div class="tool-tag">English</div>
+    <div class="tool-tag">IsiZulu</div>
+    <div class="tool-tag">Sesotho</div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="section-label" style="position:relative;z-index:2;">Let's Work Together</div>
+  <h2 class="section-title" style="position:relative;z-index:2;">I Would Like To<br>Be Part Of Your <span>Magic</span></h2>
+  <p class="contact-sub">Available for freelance, contract and full-time roles. Remote globally. Open to relocate.</p>
+  <div class="contact-links">
+    <a href="mailto:normamkhize777@gmail.com" class="contact-link">
+      <span class="dot"></span> normamkhize777@gmail.com
+    </a>
+    <a href="tel:+27741764634" class="contact-link">
+      <span class="dot"></span> +27 74 176 4634
+    </a>
+    <a href="tel:+27732491714" class="contact-link">
+      <span class="dot"></span> +27 73 249 1714
+    </a>
+    <a href="https://normamkhize.wixsite.com/norma-mkhizeportfolio" target="_blank" class="contact-link">
+      <span class="dot"></span> Wix Portfolio
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Norma Mkhize · Brand & Digital Designer · Durban, South Africa</p>
+  <div class="footer-logo">NM</div>
+  <p>Open to remote work globally</p>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animateCursor() {
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
