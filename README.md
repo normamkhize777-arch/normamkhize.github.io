@@ -1,1 +1,0 @@
-# normamkhize.github.io
